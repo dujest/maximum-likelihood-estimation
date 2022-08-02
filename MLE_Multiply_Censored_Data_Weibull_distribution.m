@@ -48,13 +48,13 @@ for i=1:grid_size(1);
     for j=1:grid_size(2);
         f=(((t./theta1(i,j)).^(beta1(i,j)-1)).*(beta1(i,j)/theta1(i,j))).*exp(-((t./theta1(i,j)).^(beta1(i,j))));
         R=exp(-((c./theta1(i,j)).^beta1(i,j)));
-        MLE(i,j)=(prod(f))*prod(R); %formula (3.3)
+        MLE(i,j)=(prod(f))*prod(R);
     end
 end
 
 surf(beta1, theta1, MLE);
 xlabel('beta');
-ylabel('teta');
+ylabel('theta');
 zlabel('MLE');
 hold on;
 
@@ -67,7 +67,7 @@ hold on;
 figure;
 mesh(beta1, theta1, MLE);
 xlabel('beta');
-ylabel('teta');
+ylabel('theta');
 zlabel('MLE');
 hold on;
 
@@ -78,6 +78,8 @@ figure;
 [k1, h1]=contourf(beta1, theta1, (100-((MLE/MLEmax)*100)), 9);
 clabel(k1, h1);
 colorbar;
+xlabel('beta');
+ylabel('theta');
 hold on;
 
 function y = funmcd( beta, k, t, r )
