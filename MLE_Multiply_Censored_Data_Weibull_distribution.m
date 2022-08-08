@@ -1,11 +1,13 @@
 clc;
 clear all;
 
-t = [34	136	154	189	286	287	334	353];
-c = [145 200 380 500 500 500 500];
+% matrices or samples of the failure and repair times - multiply censored data
+t = [353 287 189 136 34 154 286 334] % the failure times
+c = [145 200 380 500 500 500 500]; % the reapir times
 k = [t, c];
 r = length(t);
 
+% Sorts the failure and reapir times from the smallest to the largest one
 for i=1:(length(k));
     for j=i+1:(length(k));
         if (k(j)<k(i));
@@ -21,8 +23,10 @@ disp(k);
 
 beta=2.1; 
 
-y=funmcd(beta, k, t, r);
 
+y=funmcd(beta, k, t, r); % the nonlinear equation with the shape parameter (beta)
+
+% the Newton Raphson method obtains the optimal beta
 TOL=0.001;
 step=0.001;
 while abs(y)>TOL
@@ -31,12 +35,12 @@ while abs(y)>TOL
     y=funmcd(beta, k, t, r);
 end
 
-disp('The optimal beta:');
+disp('The optimal shape parameter (beta):');
 disp(beta);
 
 theta=(sum((k.^beta)./r))^(1/beta);
 
-disp('The optimal theta:');
+disp('The optimal scale parameter (theta):');
 disp(theta);
 
 [beta1,theta1]=meshgrid((beta-beta):(beta/50):(beta+beta) , (theta-theta):(theta/50):(theta+theta));
@@ -74,6 +78,7 @@ hold on;
 plot3(beta, theta, MLEmax, '.', 'MarkerSize', 30, 'MarkerEdgeColor', 'r');
 hold on;
 
+% plots the confidence intervals for the optimal distribution parameters
 figure;
 [k1, h1]=contourf(beta1, theta1, (100-((MLE/MLEmax)*100)), 9);
 clabel(k1, h1);
