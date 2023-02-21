@@ -1,7 +1,5 @@
 # maximum-likelihood-estimation
 
-The coding part of an assignment for the Maintenance course at the University of Split.
-
 <p>
 
 <img src="https://drive.google.com/uc?id=1QDiXNZgvR6hAlW0uuG8plWsbgWwEl2xG" width="30%" />
